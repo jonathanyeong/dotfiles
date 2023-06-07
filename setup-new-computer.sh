@@ -39,6 +39,24 @@ command_exists() {
   command -v "$@" >/dev/null 2>&1
 }
 
+writeZshrc() {
+cat << EOT >> ~/.zshrc
+export ZSH="$HOME/.oh-my-zsh"
+
+ZSH_THEME="spaceship"
+
+plugins=(z git git-prompt asdf zsh-syntax-highlighting)
+
+source $ZSH/oh-my-zsh.sh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias c="clear"
+alias rm="rm -i"
+
+EOT
+}
 # Check that we're ready to run the install script
 # This script is targeted mainly at a brand new install.
 read -p "About to run the install script for a new computer - are you ready? [y/n] " -n 1 -r
@@ -76,8 +94,6 @@ printHeading "Installing brew packages"
     printStep "git"                         "brew install git"
     printStep "coreutils"                   "brew install coreutils"
     printStep "github"                      "brew install gh"
-    printStep "zsh-syntax-highlighting"     "brew install zsh-syntax-highlighting"
-    # source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 printDivider
 
 printHeading "Installing applications"
@@ -134,7 +150,7 @@ printHeading "Installing applications"
         printDivider
         echo "✔ Figma already installed. Skipping"
     else
-        printStep "Slack"                   "brew install --cask figma"
+        printStep "Figma"                   "brew install --cask figma"
     fi
 printDivider
 
@@ -188,12 +204,13 @@ printHeading "Installing powerline fonts..."
   rm -rf fonts
 printDivider
 
-printHeading "Installing spaceship prompt..."
+printHeading "Installing oh my zsh plugins..."
   export ZSH_CUSTOM="$HOME/.oh-my-zsh"
   git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
   ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting
 printDivider
-printCompletedStep "spaceship prompt"
+printCompletedStep "Oh my zsh plugins"
 
 if ! command_exists asdf; then
   printHeading "Installing asdf..."
@@ -203,20 +220,8 @@ fi
 printCompletedStep "asdf"
 printDivider
 
-printHeading "Script Complete"
+printHeading "Writing to zshrc"
+    writeZshrc
 printDivider
 
-tput setaf 2 # set text color to green
-cat << "EOT"
-
-   ╭─────────────────────────────────────────────────────────────────╮
-   │░░░░░░░░░░░░░░░░░░░░░░░░░░░ Next Steps ░░░░░░░░░░░░░░░░░░░░░░░░░░│
-   ├─────────────────────────────────────────────────────────────────┤
-   │                                                                 │
-   │               Setup almost complete! In ~/.zshrc                │
-   │                                                                 │
-   │   Add plugins=(z git git-prompt zsh-syntax-highlighting asdf)   │
-   │                                                                 │
-   └─────────────────────────────────────────────────────────────────┘
-
-EOT
+printHeading "|---- Script Complete! ----|"
