@@ -39,23 +39,8 @@ command_exists() {
   command -v "$@" >/dev/null 2>&1
 }
 
-writeZshrc() {
-cat << EOT >> ~/.zshrc
-export ZSH="$HOME/.oh-my-zsh"
-
-ZSH_THEME="spaceship"
-
-plugins=(z git git-prompt asdf zsh-syntax-highlighting)
-
-source $ZSH/oh-my-zsh.sh
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-alias ..="cd .."
-alias ...="cd ../.."
-alias c="clear"
-alias rm="rm -i"
-
-EOT
+overwriteZshrc() {
+cp -f ./.zshrc ${HOME}/.zshrc
 }
 # Check that we're ready to run the install script
 # This script is targeted mainly at a brand new install.
@@ -221,7 +206,7 @@ printCompletedStep "asdf"
 printDivider
 
 printHeading "Writing to zshrc"
-    writeZshrc
+    overwriteZshrc
 printDivider
 
 printHeading "|---- Script Complete! ----|"
