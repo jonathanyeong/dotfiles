@@ -139,6 +139,15 @@ printHeading "Installing applications"
     fi
 printDivider
 
+read -p "WAIT! Have you added ssh keys to Github? [y/n] " -n 1 -r
+
+if [[ $REPLY =~ ^[Nn]$ ]]
+then
+  echo
+  echo "Please go to: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent"
+  exit 1
+fi
+
 printHeading "Setting up Git..."
 printDivider
     echo "✔ Set Git to store credentials in Keychain"
