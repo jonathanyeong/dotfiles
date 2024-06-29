@@ -3,23 +3,21 @@
 # Sets zsh to be the default shell when connecting over ssh
 sudo chsh "$(id -un)" --shell "/usr/bin/zsh"
 
-echo "Installing powerline fonts."
-sudo apt-get install fonts-powerline
+echo "[-] Download fonts [-]"
+echo "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip"
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip
+unzip FiraCode.zip -d ~/.fonts
+fc-cache -fv
+echo "done!"
 
-# Installs spaceship font for zsh
-echo "Setting up the Spaceship theme."
+# Installs starship for zsh
 export ZSH_CUSTOM="$HOME/.oh-my-zsh"
-git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
-ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
-
+curl -sS https://starship.rs/install.sh | sh
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 # Sets Git config values
 echo "Setting up Git config."
 git config --global core.editor "code"
-
-
-
 
 create_symlinks() {
     # Get the directory in which this script lives.
