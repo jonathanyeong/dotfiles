@@ -15,7 +15,7 @@ sudo chsh "$(id -un)" --shell "/usr/bin/zsh"
 
 # Installs starship for zsh
 export ZSH_CUSTOM="$HOME/.oh-my-zsh"
-curl -sS https://starship.rs/install.sh | sh -y
+curl -sS https://starship.rs/install.sh | sh -s -- -f
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 # Sets Git config values
