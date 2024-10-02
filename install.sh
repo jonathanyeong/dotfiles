@@ -3,15 +3,15 @@
 # Sets zsh to be the default shell when connecting over ssh
 sudo chsh "$(id -un)" --shell "/usr/bin/zsh"
 
-echo "[-] Download fonts [-]"
-echo "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip"
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip
-unzip FiraCode.zip -d ~/.fonts
+# echo "[-] Download fonts [-]"
+# echo "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip"
+# wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip
+# unzip FiraCode.zip -d ~/.fonts
 # TODO: Make this check if fc-cache is installed
 # also check if it's a mac or not.
-sudo apt install fontconfig
-fc-cache -fv
-echo "done!"
+# sudo apt install fontconfig
+# fc-cache -fv
+# echo "done!"
 
 # Installs starship for zsh
 export ZSH_CUSTOM="$HOME/.oh-my-zsh"
@@ -19,8 +19,8 @@ curl -sS https://starship.rs/install.sh | sh
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 # Sets Git config values
-echo "Setting up Git config."
-git config --global core.editor "code"
+# echo "Setting up Git config."
+# git config --global core.editor "code"
 
 create_symlinks() {
     # Get the directory in which this script lives.
