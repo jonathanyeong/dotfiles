@@ -7,6 +7,9 @@ echo "[-] Download fonts [-]"
 echo "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip"
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip
 unzip FiraCode.zip -d ~/.fonts
+# TODO: Make this check if fc-cache is installed
+# also check if it's a mac or not.
+sudo apt install fontconfig
 fc-cache -fv
 echo "done!"
 
